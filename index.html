@@ -4,276 +4,340 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPA Terpadu - MTsN 5 Kebumen</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #0056b3;
-            --light-blue: #e7f1ff;
-            --dark-bg: #121212;
-            --dark-card: #1e1e1e;
-            --transition: 0.3s;
+            --primary-gradient: linear-gradient(135deg, #0062ff 0%, #00a1ff 100%);
+            --dark-blue: #003d80;
+            --bg-light: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-light: #1a1c20;
+            --card-bg: #2d3139;
+            --text-main: #f5f6fa;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            background-color: #f0f2f5;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-main);
             transition: var(--transition);
         }
 
-        body.dark-mode {
-            background-color: var(--dark-bg);
-            color: white;
-        }
-
-        /* Header & Search */
         header {
-            background: linear-gradient(135deg, var(--primary-blue), #00a8ff);
+            background: var(--primary-gradient);
             color: white;
-            padding: 30px 15px;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-        }
-
-        .search-container {
-            margin-top: 15px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #searchInput {
-            width: 80%;
-            padding: 12px;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-        }
-
-        /* Dark Mode Toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            z-index: 1000;
-            background: white;
-            padding: 10px;
-            border-radius: 50%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .container {
-            max-width: 800px;
-            margin: -20px auto 50px;
-            padding: 0 15px;
+            max-width: 900px;
+            margin: -30px auto 50px;
+            padding: 0 20px;
         }
 
-        /* Modern Tabs */
+        /* Mode Toggle & Search */
+        .top-features {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        #searchBar {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            outline: none;
+        }
+
+        .btn-theme {
+            background: var(--card-bg);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 1.2rem;
+        }
+
+        /* Tab Styling */
         .tabs {
             display: flex;
-            background: white;
+            background: var(--card-bg);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            overflow: hidden;
+            padding: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
         }
-
-        .dark-mode .tabs { background: var(--dark-card); }
 
         .tab-link {
             flex: 1;
-            padding: 15px;
+            padding: 12px;
             border: none;
             background: none;
             cursor: pointer;
             font-weight: 600;
-            color: #667;
+            color: #7f8c8d;
+            border-radius: 10px;
             transition: var(--transition);
+            font-size: 0.9rem;
         }
 
         .tab-link.active {
-            background-color: var(--primary-blue);
+            background: var(--primary-gradient);
             color: white;
+            box-shadow: 0 4px 10px rgba(0,98,255,0.3);
         }
 
-        /* Content Cards */
-        .materi-card {
-            background: white;
-            margin-bottom: 15px;
+        /* Materi Cards */
+        .tab-content {
+            display: none;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .materi-item {
+            background: var(--card-bg);
+            margin-bottom: 20px;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
         }
 
-        .dark-mode .materi-card { background: var(--dark-card); border: 1px solid #333; }
-
-        .materi-card:hover { transform: translateY(-5px); }
-
-        .materi-card h3 { margin-top: 0; color: var(--primary-blue); }
-
-        .check-materi {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            transform: scale(1.5);
+        .materi-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        .button-group {
+        .materi-item h3 {
+            margin-top: 0;
+            color: #0062ff;
+            font-size: 1.2rem;
+        }
+
+        .media-group {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
 
         .btn {
-            padding: 10px 18px;
-            border-radius: 10px;
+            flex: 1;
+            text-align: center;
             text-decoration: none;
-            color: white;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: var(--transition);
         }
 
-        .btn-pdf { background: #e74c3c; }
-        .btn-yt { background: #ff0000; }
-        .btn-quiz { background: #2ecc71; }
+        .btn-pdf { background: #ffe9e9; color: #d63031; }
+        .btn-yt { background: #ffeded; color: #ff0000; }
+        .btn:hover { filter: brightness(0.9); transform: scale(1.02); }
 
-        /* Floating WA */
-        .float-wa {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            text-decoration: none;
+        /* Footer / Quick Links */
+        .footer-nav {
+            text-align: center;
+            margin-top: 40px;
+            padding-bottom: 30px;
+            font-size: 0.8rem;
+            color: #7f8c8d;
         }
 
+        /* Mobile Optimization */
         @media (max-width: 600px) {
-            .button-group { flex-direction: column; }
+            header h1 { font-size: 1.5rem; }
+            .tabs { flex-wrap: wrap; }
+            .tab-link { font-size: 0.75rem; padding: 10px 5px; }
+            .media-group { flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-<div class="theme-toggle" onclick="toggleDarkMode()">
-    <i class="fas fa-moon"></i>
-</div>
-
 <header>
-    <h1>E-Learning IPA MTsN 5</h1>
-    <p>Belajar IPA jadi lebih asyik & modern</p>
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchMateri()" placeholder="Cari materi (misal: Sel, Cahaya)...">
-    </div>
+    <h1 style="margin:0">IPA Terpadu</h1>
+    <p style="opacity:0.9; font-weight:300">MTs Negeri 5 Kebumen</p>
 </header>
 
 <div class="container">
-    <div class="tabs">
-        <button class="tab-link" onclick="openTab(event, '7')">Kelas VII</button>
-        <button class="tab-link active" onclick="openTab(event, '8')">Kelas VIII</button>
-        <button class="tab-link" onclick="openTab(event, '9')">Kelas IX</button>
+    <div class="top-features">
+        <input type="text" id="searchBar" placeholder="Cari judul bab..." onkeyup="searchMateri()">
+        <button class="btn-theme" onclick="toggleDarkMode()" title="Ganti Mode">🌓</button>
     </div>
 
-    <div id="kelas8" class="content-section">
-        <div id="listMateri8">
-            <div class="materi-card" data-title="sel perkembangannya">
-                <input type="checkbox" class="check-materi" title="Tandai Selesai">
+    <div class="tabs">
+        <button class="tab-link" onclick="openClass(event, 'kelas7')">KELAS VII</button>
+        <button class="tab-link active" onclick="openClass(event, 'kelas8')">KELAS VIII</button>
+        <button class="tab-link" onclick="openClass(event, 'kelas9')">KELAS IX</button>
+    </div>
+
+    <div id="kelas7" class="tab-content">
+        <div class="materi-item">
+            <h3>Materi Masih Disiapkan</h3>
+            <p>Siswa Kelas VII harap menunggu update materi terbaru ya!</p>
+        </div>
+    </div>
+
+    <div id="kelas8" class="tab-content" style="display: block;">
+        <div id="materiList8">
+            <div class="materi-item">
                 <h3>Bab 1: Sel & Perkembangannya</h3>
-                <p>Mengenal unit terkecil penyusun makhluk hidup.</p>
-                <div class="button-group">
-                    <a href="#" class="btn btn-pdf"><i class="fas fa-file-pdf"></i> Ringkasan</a>
-                    <a href="#" class="btn btn-yt"><i class="fab fa-youtube"></i> Video</a>
-                    <a href="#" class="btn btn-quiz"><i class="fas fa-gamepad"></i> Game Quiz</a>
+                <p>Mengenal unit terkecil kehidupan dan perbedaannya.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
                 </div>
             </div>
 
-            <div class="materi-card" data-title="pencernaan manusia nutrisi">
-                <input type="checkbox" class="check-materi" title="Tandai Selesai">
+            <div class="materi-item">
                 <h3>Bab 2: Sistem Pencernaan</h3>
-                <p>Bagaimana makanan diolah tubuh menjadi energi?</p>
-                <div class="button-group">
-                    <a href="#" class="btn btn-pdf"><i class="fas fa-file-pdf"></i> PDF</a>
-                    <a href="#" class="btn btn-yt"><i class="fab fa-youtube"></i> Video</a>
-                    <a href="#" class="btn btn-quiz"><i class="fas fa-gamepad"></i> Quiz</a>
+                <p>Bagaimana tubuh mengolah nutrisi dari makanan.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
                 </div>
             </div>
 
-            <div class="materi-card" data-title="cahaya alat optik">
-                <input type="checkbox" class="check-materi" title="Tandai Selesai">
+            <div class="materi-item">
+                <h3>Bab 3: Zat Aditif</h3>
+                <p>Mengenal pewarna, pengawet, dan penyedap pada makanan.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 4: Peredaran Darah</h3>
+                <p>Mempelajari jantung, pembuluh darah, dan sel darah.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 5: Sistem Pernapasan</h3>
+                <p>Mekanisme inspirasi, ekspirasi, dan kesehatan paru-paru.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 6: Sistem Ekskresi</h3>
+                <p>Cara tubuh membuang racun melalui ginjal dan kulit.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 7: Usaha & Energi</h3>
+                <p>Konsep kerja fisik dan perubahan bentuk energi.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 8: Pesawat Sederhana</h3>
+                <p>Tuas, katrol, dan cara mempermudah pekerjaan manusia.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
+                <h3>Bab 9: Getaran & Gelombang</h3>
+                <p>Mempelajari bunyi, frekuensi, dan resonansi.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                </div>
+            </div>
+
+            <div class="materi-item">
                 <h3>Bab 10: Cahaya & Alat Optik</h3>
-                <p>Sifat cahaya, cermin, lensa, dan cara kerja mata.</p>
-                <div class="button-group">
-                    <a href="#" class="btn btn-pdf"><i class="fas fa-file-pdf"></i> PDF</a>
-                    <a href="#" class="btn btn-yt"><i class="fab fa-youtube"></i> Video</a>
-                    <a href="#" class="btn btn-quiz"><i class="fas fa-gamepad"></i> Quiz</a>
+                <p>Sifat cahaya, cermin, lensa, dan mikroskop.</p>
+                <div class="media-group">
+                    <a href="#" class="btn btn-pdf">📄 PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="kelas7" class="content-section" style="display:none">
-        <center><p>Materi Kelas VII akan segera hadir.</p></center>
+    <div id="kelas9" class="tab-content">
+        <div class="materi-item">
+            <h3>Segera Hadir</h3>
+            <p>Materi persiapan ujian akhir untuk kelas IX.</p>
+        </div>
     </div>
-    
-    <div id="kelas9" class="content-section" style="display:none">
-        <center><p>Materi Kelas IX akan segera hadir.</p></center>
+
+    <div class="footer-nav">
+        <p>&copy; 2024 MTs Negeri 5 Kebumen - Ilmu Pengetahuan Alam</p>
     </div>
 </div>
 
-<a href="https://wa.me/628123456789" class="float-wa" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 <script>
-    // Tab System
-    function openTab(evt, kelas) {
-        let i, sections, links;
-        sections = document.getElementsByClassName("content-section");
-        for (i = 0; i < sections.length; i++) sections[i].style.display = "none";
-        
-        links = document.getElementsByClassName("tab-link");
-        for (i = 0; i < links.length; i++) links[i].className = links[i].className.replace(" active", "");
-        
-        document.getElementById("kelas" + kelas).style.display = "block";
+    // Fungsi Tab
+    function openClass(evt, className) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(className).style.display = "block";
         evt.currentTarget.className += " active";
     }
 
-    // Search Feature
-    function searchMateri() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('materi-card');
-        
-        for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].getAttribute('data-title');
-            if (title.includes(input)) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
-            }
-        }
+    // Fitur Dark Mode
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
     }
 
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        const icon = document.querySelector('.theme-toggle i');
-        if(document.body.classList.contains('dark-mode')) {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
+    // Fitur Pencarian
+    function searchMateri() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let items = document.getElementsByClassName('materi-item');
+        
+        for (i = 0; i < items.length; i++) {
+            if (!items[i].innerHTML.toLowerCase().includes(input)) {
+                items[i].style.display = "none";
+            } else {
+                items[i].style.display = "block";
+            }
         }
     }
 </script>
