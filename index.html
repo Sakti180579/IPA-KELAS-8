@@ -93,23 +93,26 @@
         .btn-yt { background: #ff7675; }
         .btn-quiz { background: var(--orange-mts); }
 
-        /* --- KUIS MODAL --- */
-        #quizOverlay {
+        /* --- VIDEO CONTAINER --- */
+        .video-wrapper {
+            display: none; margin-top: 15px; position: relative;
+            padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+        }
+
+        /* --- KUIS & OVERLAY MODAL --- */
+        #quizOverlay, #videoOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;
         }
-        .quiz-container {
-            background: white; width: 90%; max-width: 600px; padding: 30px;
-            border-radius: 20px; position: relative; max-height: 80vh; overflow-y: auto;
+        .modal-container {
+            background: white; width: 90%; max-width: 650px; padding: 30px;
+            border-radius: 20px; position: relative; max-height: 90vh; overflow-y: auto;
         }
-        .quiz-header { font-weight: bold; font-size: 1.2rem; margin-bottom: 20px; color: var(--purple-mts); }
-        .quiz-option {
-            display: block; width: 100%; padding: 15px; margin-bottom: 10px;
-            background: #f1f2f6; border: 2px solid transparent; border-radius: 10px;
-            text-align: left; cursor: pointer; transition: 0.2s;
-        }
-        .quiz-option:hover { background: #e1e2e6; border-color: var(--blue-mts); }
-        .close-quiz { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #636e72; }
 
         /* --- HOME --- */
         .profile-section { display: flex; align-items: center; gap: 25px; flex-wrap: wrap; margin-bottom: 30px; }
@@ -177,6 +180,7 @@
                 <p>Metode ilmiah dan alat laboratorium.</p>
                 <div class="btn-group">
                     <button class="btn btn-pdf" onclick="saveHistory('Materi VII: Sains')">📄 PDF</button>
+                    <button class="btn btn-yt" onclick="playVideo('yv_Kk6Xf5n0', 'Hakikat Ilmu Sains')">🎬 Video</button>
                     <button class="btn btn-quiz" onclick="startQuiz('sains7')">📝 Kuis</button>
                 </div>
             </div>
@@ -192,6 +196,7 @@
                 <p>Unit terkecil penyusun makhluk hidup.</p>
                 <div class="btn-group">
                     <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Sel')">📄 PDF</button>
+                    <button class="btn btn-yt" onclick="playVideo('86W4zO4e7I8', 'Materi Sel')">🎬 Video</button>
                     <button class="btn btn-quiz" onclick="startQuiz('sel')">📝 Kuis</button>
                 </div>
             </div>
@@ -201,6 +206,7 @@
                 <p>Nutrisi makanan dan saluran pencernaan.</p>
                 <div class="btn-group">
                     <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Pencernaan')">📄 PDF</button>
+                    <button class="btn btn-yt" onclick="playVideo('gRzUv9L-K0I', 'Sistem Pencernaan')">🎬 Video</button>
                     <button class="btn btn-quiz" onclick="startQuiz('pencernaan')">📝 Kuis</button>
                 </div>
             </div>
@@ -210,6 +216,7 @@
                 <p>Jantung, pembuluh darah, dan komponen darah.</p>
                 <div class="btn-group">
                     <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Darah')">📄 PDF</button>
+                    <button class="btn btn-yt" onclick="playVideo('m-S6F9_m6sM', 'Sistem Peredaran Darah')">🎬 Video</button>
                     <button class="btn btn-quiz" onclick="startQuiz('darah')">📝 Kuis</button>
                 </div>
             </div>
@@ -224,6 +231,7 @@
                 <p>Pewarisan sifat dan DNA.</p>
                 <div class="btn-group">
                     <button class="btn btn-pdf" onclick="saveHistory('Materi IX: Genetik')">📄 PDF</button>
+                    <button class="btn btn-yt" onclick="playVideo('X0-fV9O9HkU', 'Pewarisan Sifat')">🎬 Video</button>
                     <button class="btn btn-quiz" onclick="startQuiz('genetika9')">📝 Kuis</button>
                 </div>
             </div>
@@ -231,11 +239,20 @@
     </div>
 </div>
 
+<div id="videoOverlay">
+    <div class="modal-container">
+        <span class="close-modal" onclick="closeVideo()">×</span>
+        <h3 id="videoTitle" style="margin-top: 0; color: var(--purple-mts);">Video Pembelajaran</h3>
+        <div class="video-wrapper" id="videoBox" style="display: block;">
+            <iframe id="ytPlayer" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
 <div id="quizOverlay">
-    <div class="quiz-container">
-        <span class="close-quiz" onclick="closeQuiz()">×</span>
-        <div id="quizContent">
-            </div>
+    <div class="modal-container">
+        <span class="close-modal" onclick="closeQuiz()">×</span>
+        <div id="quizContent"></div>
     </div>
 </div>
 
@@ -270,6 +287,19 @@
         }
     };
 
+    // --- FUNGSI VIDEO ---
+    function playVideo(id, judul) {
+        document.getElementById('videoTitle').innerText = "Belajar: " + judul;
+        document.getElementById('ytPlayer').src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+        document.getElementById('videoOverlay').style.display = 'flex';
+        saveHistory('Nonton: ' + judul);
+    }
+
+    function closeVideo() {
+        document.getElementById('videoOverlay').style.display = 'none';
+        document.getElementById('ytPlayer').src = "";
+    }
+
     // --- FUNGSI KUIS ---
     let currentQuiz = null;
     let score = 0;
@@ -277,7 +307,6 @@
     function startQuiz(key) {
         currentQuiz = quizData[key];
         if (!currentQuiz) { alert("Kuis belum tersedia!"); return; }
-        
         score = 0;
         document.getElementById('quizOverlay').style.display = 'flex';
         renderQuestion(0);
@@ -286,20 +315,16 @@
     function renderQuestion(index) {
         const content = document.getElementById('quizContent');
         const q = currentQuiz.questions[index];
-        
-        let html = `<div class="quiz-header">${currentQuiz.title}</div>
+        let html = `<h3 style="color:var(--purple-mts)">${currentQuiz.title}</h3>
                     <p><strong>Soal ${index + 1}:</strong> ${q.q}</p>`;
-        
         q.a.forEach((opt, i) => {
             html += `<button class="quiz-option" onclick="checkAnswer(${index}, ${i})">${opt}</button>`;
         });
-        
         content.innerHTML = html;
     }
 
     function checkAnswer(qIndex, aIndex) {
         if (aIndex === currentQuiz.questions[qIndex].correct) score++;
-        
         if (qIndex + 1 < currentQuiz.questions.length) {
             renderQuestion(qIndex + 1);
         } else {
@@ -309,11 +334,14 @@
 
     function showResult() {
         const content = document.getElementById('quizContent');
+        const finalScore = (score / currentQuiz.questions.length) * 100;
         content.innerHTML = `
-            <div class="quiz-header">Hasil Kuis</div>
-            <h2 style="text-align:center">Skor Kamu: ${(score / currentQuiz.questions.length) * 100}</h2>
-            <p style="text-align:center">Hebat! Teruslah belajar, Scientist!</p>
-            <button class="btn btn-pdf" style="width:100%" onclick="closeQuiz()">Selesai</button>
+            <div style="text-align:center">
+                <h3>Hasil Kuis</h3>
+                <h1 style="font-size: 3rem; color: var(--orange-mts); margin: 10px 0;">${finalScore}</h1>
+                <p>Hebat! Teruslah belajar, Scientist!</p>
+                <button class="btn btn-pdf" style="width:100%" onclick="closeQuiz()">Selesai</button>
+            </div>
         `;
     }
 
@@ -367,7 +395,6 @@
         if(history.length > 5) history.pop();
         localStorage.setItem('ipa_history', JSON.stringify(history));
         displayHistory();
-        alert("Membuka " + namaMateri);
     }
 
     function displayHistory() {
