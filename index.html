@@ -1,347 +1,56 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPA Terpadu - MTs Negeri 5 Kebumen</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --pink-mts: #ff85a1;
-            --blue-mts: #4facfe;
-            --green-mts: #4ade80;
-            --orange-mts: #ff9f43;
-            --purple-mts: #a29bfe;
-            --dark-text: #2d3436;
-            --white: #ffffff;
-        }
+<div id="home" class="tab-content" style="display: block;">
+        <div class="card" style="background: linear-gradient(to right, #ffffff, #f1f4ff);">
+            <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <h2 style="color: #764ba2; margin-top: 0;">Halo, Calon Ilmuwan Muda! 🔬</h2>
+                    <p style="line-height: 1.6; color: #444;">
+                        Pernahkah kamu bertanya-tanya mengapa langit berwarna biru, atau bagaimana sel-sel kecil di tubuhmu bekerja tanpa henti? 
+                        <strong>IPA (Ilmu Pengetahuan Alam)</strong> adalah kunci untuk membuka rahasia semesta. 
+                    </p>
+                    <p style="line-height: 1.6; color: #444;">
+                        Di sini, kita tidak hanya menghafal teori, tapi kita akan <strong>menjelajah, bereksperimen, dan memahami</strong> dunia dengan cara yang lebih seru. Siapkan rasa ingin tahumu dan mari kita mulai petualangan sains hari ini!
+                    </p>
+                </div>
+                <div style="flex: 0 1 150px; text-align: center;">
+                    <div style="font-size: 80px;">🚀</div>
+                </div>
+            </div>
+        </div>
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: #f0f2f5;
-            color: var(--dark-text);
-            padding-bottom: 70px; /* Ruang untuk mobile nav */
-        }
-
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: 0.5s;
-        }
-
-        .container { max-width: 1000px; margin: -30px auto 40px; padding: 0 15px; position: relative; }
-
-        /* --- SEARCH BOX --- */
-        .search-container {
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 12px;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            font-family: 'Poppins';
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        /* --- NAVIGATION TABS (Isolated View) --- */
-        .tabs {
-            display: none; 
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            padding: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-link {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 10px;
-            transition: 0.3s;
-            background: #f8f9fa;
-            color: #636e72;
-            font-size: 0.9rem;
-        }
-        .tab-home-btn { background: #636e72; color: white; flex: 0.5; }
-
-        /* --- BOTTOM NAV MOBILE --- */
-        .mobile-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            display: none;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-        .nav-item { border: none; background: none; font-size: 0.7rem; color: #636e72; cursor: pointer; }
-        .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 2px; }
-
-        /* --- CONTENT STYLE --- */
-        .tab-content { display: none; animation: slideUp 0.5s ease; }
-        .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        
-        .class-selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
-        .class-card { padding: 30px; border-radius: 20px; color: white; text-align: center; cursor: pointer; transition: 0.3s; }
-        .class-card:hover { transform: scale(1.03); }
-        .c7 { background: var(--pink-mts); }
-        .c8 { background: var(--blue-mts); }
-        .c9 { background: var(--green-mts); }
-
-        /* --- MATERI LIST --- */
-        .materi-item {
-            background: #fdfdfd;
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 6px solid #ddd;
-            transition: 0.3s;
-        }
-        .materi-item h3 { margin: 0 0 5px 0; font-size: 1.1rem; }
-        #kelas7 .materi-item { border-left-color: var(--pink-mts); }
-        #kelas8 .materi-item { border-left-color: var(--blue-mts); }
-        #kelas9 .materi-item { border-left-color: var(--green-mts); }
-
-        .btn-group { display: flex; gap: 8px; margin-top: 10px; }
-        .btn { padding: 8px 15px; border-radius: 8px; font-size: 0.75rem; color: white; font-weight: 600; cursor: pointer; border: none; text-decoration: none; }
-        .btn-pdf { background: #00cec9; }
-        .btn-yt { background: #ff7675; }
-
-        .history-box {
-            background: #2d3436;
-            color: #fab1a0;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        @media (max-width: 600px) {
-            .mobile-nav { display: flex; }
-            .tabs { display: none !important; } /* Sembunyikan tab desktop di HP */
-            header { padding: 30px 15px; }
-        }
-    </style>
-</head>
-<body>
-
-<header id="dynamicHeader">
-    <h1 id="mainTitle">IPA SMART</h1>
-    <p id="subTitle">MTs Negeri 5 Kebumen</p>
-</header>
-
-<div class="container">
-    <div class="history-box">
-        🕒 <strong>Terakhir Dibuka:</strong> <span id="lastMateri">Belum ada</span>
-    </div>
-
-    <div class="search-container">
-        <input type="text" class="search-input" id="searchInput" onkeyup="searchMateri()" placeholder="Cari materi (contoh: Sel, Cahaya)...">
-    </div>
-
-    <div class="tabs" id="desktopTabs">
-        <button class="tab-link tab-home-btn" onclick="goToHome()">🏠 HOME</button>
-        <button class="tab-link" id="currentTabLabel" style="background: white; color: var(--dark-text); cursor: default;"></button>
-    </div>
-
-    <div id="home" class="tab-content" style="display: block;">
         <div class="card">
-            <h2 style="margin-top:0;">Pilih Kelas Belajar</h2>
+            <div style="display: flex; align-items: center; gap: 25px; flex-wrap: wrap;">
+                <img src="https://via.placeholder.com/120" alt="Foto Guru" 
+                     style="width: 120px; height: 120px; border-radius: 60px; border: 4px solid var(--purple-mts); object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="margin: 0; color: var(--dark-text);">Nama Guru, S.Pd.</h3>
+                    <p style="margin: 5px 0; color: var(--purple-mts); font-weight: 600;">Guru Mata Pelajaran IPA</p>
+                    <hr style="border: 0; border-top: 2px solid #eee; margin: 10px 0;">
+                    <p style="font-size: 0.9rem; font-style: italic; color: #636e72; margin: 0;">
+                        "Sains bukan hanya tentang apa yang kita ketahui, tapi tentang bagaimana kita berani bertanya."
+                    </p>
+                    <div style="margin-top: 10px; display: flex; gap: 10px;">
+                        <span style="background: #e1f5fe; color: #0288d1; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">✔ MTsN 5 Kebumen</span>
+                        <span style="background: #fff3e0; color: #ef6c00; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">✔ Scientist Mindset</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0; text-align: center;">Mulai Belajar Berdasarkan Jenjang</h3>
             <div class="class-selector">
                 <div class="class-card c7" onclick="openIsolatedClass('kelas7')">
-                    <h2>KELAS VII</h2>
-                    <p>Sains & Makhluk Hidup</p>
+                    <h2 style="margin-bottom: 5px;">KELAS VII</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Eksplorasi Alam & Zat</p>
                 </div>
                 <div class="class-card c8" onclick="openIsolatedClass('kelas8')">
-                    <h2>KELAS VIII</h2>
-                    <p>Struktur Tubuh & Usaha</p>
+                    <h2 style="margin-bottom: 5px;">KELAS VIII</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Sistem Tubuh & Mekanika</p>
                 </div>
                 <div class="class-card c9" onclick="openIsolatedClass('kelas9')">
-                    <h2>KELAS IX</h2>
-                    <p>Genetika & Listrik</p>
+                    <h2 style="margin-bottom: 5px;">KELAS IX</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Pewarisan Sifat & Teknologi</p>
                 </div>
             </div>
         </div>
     </div>
-
-    <div id="kelas7" class="tab-content materi-list">
-        <div class="card">
-            <h2 style="color: var(--pink-mts);">🌸 Materi Kelas VII</h2>
-            <div class="materi-item" data-title="Hakikat Ilmu Sains">
-                <h3>Bab 1: Hakikat Ilmu Sains</h3>
-                <p>Metode ilmiah dan laboratorium.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveMateriHistory('Bab 1: Hakikat Sains (VII)')">📄 Materi</button>
-                    <button class="btn btn-yt" onclick="saveMateriHistory('Video: Hakikat Sains (VII)')">▶️ Video</button>
-                </div>
-            </div>
-            <div class="materi-item" data-title="Zat dan Perubahannya">
-                <h3>Bab 2: Zat dan Perubahannya</h3>
-                <p>Wujud zat dan perubahan fisika-kimia.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveMateriHistory('Bab 2: Zat (VII)')">📄 Materi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="kelas8" class="tab-content materi-list">
-        <div class="card">
-            <h2 style="color: var(--blue-mts);">💎 Materi Kelas VIII</h2>
-            <div class="materi-item" data-title="Sel dan Mikroskop">
-                <h3>Bab 1: Sel & Mikroskop</h3>
-                <p>Unit terkecil kehidupan.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveMateriHistory('Bab 1: Sel (VIII)')">📄 Materi</button>
-                    <button class="btn btn-yt" onclick="saveMateriHistory('Video: Sel (VIII)')">▶️ Video</button>
-                </div>
-            </div>
-            <div class="materi-item" data-title="Sistem Pencernaan">
-                <h3>Bab 2: Sistem Pencernaan</h3>
-                <p>Nutrisi dan organ pencernaan.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveMateriHistory('Bab 2: Pencernaan (VIII)')">📄 Materi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="kelas9" class="tab-content materi-list">
-        <div class="card">
-            <h2 style="color: var(--green-mts);">🍀 Materi Kelas IX</h2>
-            <div class="materi-item" data-title="Pewarisan Sifat Genetika">
-                <h3>Bab 1: Pewarisan Sifat</h3>
-                <p>Materi genetik dan hukum Mendel.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveMateriHistory('Bab 1: Genetika (IX)')">📄 Materi</button>
-                    <button class="btn btn-yt" onclick="saveMateriHistory('Video: Genetika (IX)')">▶️ Video</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="mobile-nav">
-    <button class="nav-item" onclick="goToHome()">🏠<br>Home</button>
-    <button class="nav-item" onclick="openIsolatedClass('kelas7')">7️⃣<br>Kls 7</button>
-    <button class="nav-item" onclick="openIsolatedClass('kelas8')">8️⃣<br>Kls 8</button>
-    <button class="nav-item" onclick="openIsolatedClass('kelas9')">9️⃣<br>Kls 9</button>
-</div>
-
-<script>
-    // 1. Fungsi Buka Kelas Secara Terisolasi (Tidak terlihat kelas lain)
-    function openIsolatedClass(className) {
-        // Sembunyikan semua content
-        const contents = document.getElementsByClassName("tab-content");
-        for (let content of contents) { content.style.display = "none"; }
-
-        // Tampilkan kelas terpilih
-        document.getElementById(className).style.display = "block";
-        document.getElementById('home').style.display = "none";
-
-        // Tampilkan Navigasi Desktop (Tab Home & Nama Kelas)
-        const desktopTabs = document.getElementById('desktopTabs');
-        const label = document.getElementById('currentTabLabel');
-        desktopTabs.style.display = "flex";
-        
-        // Update Header & Label
-        const header = document.getElementById('dynamicHeader');
-        const title = document.getElementById('mainTitle');
-
-        if(className === 'kelas7') {
-            header.style.background = 'var(--pink-mts)';
-            title.innerText = "KELAS VII";
-            label.innerText = "📍 SEDANG DIBUKA: KELAS VII";
-        } else if(className === 'kelas8') {
-            header.style.background = 'var(--blue-mts)';
-            title.innerText = "KELAS VIII";
-            label.innerText = "📍 SEDANG DIBUKA: KELAS VIII";
-        } else {
-            header.style.background = 'var(--green-mts)';
-            title.innerText = "KELAS IX";
-            label.innerText = "📍 SEDANG DIBUKA: KELAS IX";
-        }
-        window.scrollTo(0,0);
-    }
-
-    // 2. Fungsi Kembali ke Home
-    function goToHome() {
-        const contents = document.getElementsByClassName("tab-content");
-        for (let content of contents) { content.style.display = "none"; }
-        
-        document.getElementById('home').style.display = "block";
-        document.getElementById('desktopTabs').style.display = "none";
-        
-        const header = document.getElementById('dynamicHeader');
-        header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        document.getElementById('mainTitle').innerText = "IPA SMART";
-    }
-
-    // 3. Fitur Histori Terakhir Membuka Materi
-    function saveMateriHistory(namaMateri) {
-        const tgl = new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short'});
-        const jam = new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
-        const fullHistory = `${namaMateri} (${tgl}, ${jam})`;
-        
-        localStorage.setItem('last_ipa_materi', fullHistory);
-        document.getElementById('lastMateri').innerText = fullHistory;
-        
-        alert("Membuka: " + namaMateri);
-    }
-
-    // 4. Fitur Search (Pencarian Materi)
-    function searchMateri() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let materiItems = document.getElementsByClassName('materi-item');
-        let hasResult = false;
-
-        // Jika input kosong, tampilkan normal sesuai tab yang aktif
-        if(input === "") {
-            // refresh tampilan (opsional: bisa panggil goToHome)
-            return;
-        }
-
-        for (let item of materiItems) {
-            let title = item.getAttribute('data-title').toLowerCase();
-            if (title.includes(input)) {
-                item.style.display = "block";
-                // Jika sedang mencari, paksa tampilkan parent kelasnya
-                item.closest('.tab-content').style.display = "block";
-                hasResult = true;
-            } else {
-                item.style.display = "none";
-            }
-        }
-    }
-
-    // Load histori saat halaman dibuka
-    window.onload = function() {
-        const history = localStorage.getItem('last_ipa_materi');
-        if (history) {
-            document.getElementById('lastMateri').innerText = history;
-        }
-    }
-</script>
-
-</body>
-</html>
