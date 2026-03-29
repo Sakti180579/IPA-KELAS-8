@@ -3,214 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPA Smart - MTsN 5 Kebumen</title>
+    <title>IPA Terpadu - MTs Negeri 5 Kebumen</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-main: #ff85a1; --pink-light: #ffe4e9;
-            --blue-main: #4facfe; --blue-light: #e0f2fe;
-            --green-main: #4ade80; --green-light: #f0fdf4;
-            --text-dark: #2d3436;
+            --pink-mts: #ff85a1;
+            --blue-mts: #4facfe;
+            --green-mts: #4ade80;
+            --dark-text: #2d3436;
             --white: #ffffff;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            background-color: #f0f4f8;
-            color: var(--text-dark);
-            transition: 0.3s;
+            background-color: #f8f9fa;
+            color: var(--dark-text);
+            transition: background 0.3s ease;
         }
 
-        /* --- LANDING & LOGIN PAGE --- */
+        /* --- HALAMAN UTAMA / PROFIL GURU --- */
         #landing-page {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            color: white;
-            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
         }
 
-        .login-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 40px;
+        .profile-card {
+            background: white;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
-            width: 90%;
-            max-width: 400px;
-        }
-
-        .login-box input, .login-box select {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 30px;
+            max-width: 600px;
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: none;
-            outline: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-entry {
-            background: #ffbd69;
-            color: #333;
+        .teacher-info {
+            margin-top: 20px;
+        }
+
+        .teacher-photo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            background-color: #ddd; /* Placeholder jika foto belum ada */
+            border: 3px solid #eee;
+            object-fit: cover;
+        }
+
+        .profile-card h1 { color: #4834d4; margin-bottom: 5px; font-size: 1.5rem; }
+        .profile-card p { margin: 5px 0; color: #666; }
+
+        .btn-enter {
+            background: #4834d4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
             width: 100%;
             margin-top: 20px;
             transition: 0.3s;
         }
 
-        .btn-entry:hover { background: #ff9f43; transform: scale(1.05); }
+        .btn-enter:hover { background: #686de0; transform: translateY(-2px); }
 
-        /* --- MAIN CONTENT --- */
-        #main-app { display: none; }
+        /* --- HALAMAN MATERI (HIDDEN BY DEFAULT) --- */
+        #main-content { display: none; }
 
         header {
-            background-color: var(--blue-main);
-            color: white;
-            padding: 40px 20px;
+            background-color: var(--blue-mts);
+            color: var(--white);
+            padding: 30px 20px;
             text-align: center;
-            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.5s ease;
         }
 
-        .stats-bar {
-            background: rgba(0,0,0,0.1);
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 50px;
-            display: inline-flex;
-            gap: 20px;
-        }
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
 
-        .container { max-width: 1000px; margin: -30px auto 50px; padding: 0 15px; }
-
-        /* Widget History & Leaderboard */
-        .grid-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card-info {
-            background: white;
+        /* History Widget */
+        .history-box {
+            background: #fff;
             padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #333;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        /* Tabs Per Kelas */
+        /* Tab Styling */
         .tabs {
             display: flex;
-            background: white;
-            padding: 10px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            gap: 10px;
+            background: #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            gap: 5px;
+            padding: 5px;
         }
 
         .tab-link {
             flex: 1;
-            padding: 12px;
+            padding: 15px;
             border: none;
-            border-radius: 10px;
-            font-weight: bold;
             cursor: pointer;
+            font-weight: bold;
+            border-radius: 10px;
             transition: 0.3s;
+            background: transparent;
         }
 
-        .tab-7 { background: var(--pink-light); color: #d63384; }
-        .tab-8 { background: var(--blue-light); color: #007bff; }
-        .tab-9 { background: var(--green-light); color: #198754; }
+        .tab-link.active { background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        /* Warna Khusus Kelas */
+        .tab-7.active { color: var(--pink-mts); }
+        .tab-8.active { color: var(--blue-mts); }
+        .tab-9.active { color: var(--green-mts); }
 
-        .tab-link.active.tab-7 { background: var(--pink-main); color: white; }
-        .tab-link.active.tab-8 { background: var(--blue-main); color: white; }
-        .tab-link.active.tab-9 { background: var(--green-main); color: white; }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Materi Items */
         .materi-item {
             background: white;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding: 20px;
             border-radius: 15px;
-            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        #kelas7 .materi-item { border-left: 8px solid var(--pink-main); }
-        #kelas8 .materi-item { border-left: 8px solid var(--blue-main); }
-        #kelas9 .materi-item { border-left: 8px solid var(--green-main); }
+        /* Border warna dinamis */
+        #kelas7 .materi-item { border-left: 8px solid var(--pink-mts); }
+        #kelas8 .materi-item { border-left: 8px solid var(--blue-mts); }
+        #kelas9 .materi-item { border-left: 8px solid var(--green-mts); }
 
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
         .btn {
-            padding: 10px 15px;
-            border-radius: 8px;
             text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-size: 0.85rem;
+            color: white;
             font-weight: 600;
+            display: inline-block;
             border: none;
             cursor: pointer;
         }
 
-        .btn-yt { background: #ff0000; color: white; }
-        .btn-pdf { background: #555; color: white; }
-        .btn-quiz { background: #ffbd69; color: #333; }
+        .btn-pdf { background-color: #55acee; }
+        .btn-yt { background-color: #ff0000; }
+        .btn-quiz { background-color: #f39c12; }
 
-        /* Leaderboard List */
-        .lb-list { list-style: none; padding: 0; margin: 5px 0; font-size: 0.9rem; }
-        .lb-list li { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px outline #eee; }
-
-        @media (max-width: 600px) { .grid-info { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) {
+            .tabs { flex-direction: column; }
+            .teacher-photo { position: relative; display: block; margin: 0 auto 10px; top: 0; right: 0; }
+            .profile-card { text-align: center; }
+        }
     </style>
 </head>
 <body>
 
 <div id="landing-page">
-    <div class="login-box">
-        <h1 style="margin-bottom: 5px;">IPA Smart</h1>
-        <p>MTs Negeri 5 Kebumen</p>
-        <hr style="opacity: 0.3; margin: 20px 0;">
-        <input type="text" id="inputName" placeholder="Nama Lengkap">
-        <select id="inputClass">
-            <option value="">-- Pilih Kelas --</option>
-            <option value="7">Kelas VII</option>
-            <option value="8">Kelas VIII</option>
-            <option value="9">Kelas IX</option>
-        </select>
-        <input type="number" id="inputAbsen" placeholder="Nomor Absen">
-        <button class="btn-entry" onclick="startApp()">MASUK KELAS</button>
+    <div class="profile-card">
+        <img src="https://via.placeholder.com/100" alt="Foto Guru" class="teacher-photo">
+        
+        <div class="teacher-info">
+            <p style="font-weight: bold; color: #4834d4;">GURU MATA PELAJARAN IPA</p>
+            <h1>Nama Guru, S.Pd.</h1>
+            <p>📧 Email: guruipa@mtsn5kebumen.sch.id</p>
+            <p>📞 No. HP: 0812-3456-7890</p>
+            <p>📍 MTs Negeri 5 Kebumen</p>
+        </div>
+        
+        <button class="btn-enter" onclick="enterClass()">MASUK KE PEMBELAJARAN</button>
     </div>
 </div>
 
-<div id="main-app">
-    <header id="appHeader">
-        <h1 id="welcomeText">Materi IPA Terpadu</h1>
-        <div class="stats-bar">
-            <span>👤 <span id="userName">Siswa</span></span>
-            <span style="color: #ffbd69;">⭐ <span id="userXP">0</span> XP</span>
-        </div>
+<div id="main-content">
+    <header id="dynamicHeader">
+        <h1>IPA SMART - MTsN 5 KEBUMEN</h1>
+        <p>Pusat Belajar Digital Interaktif</p>
     </header>
 
     <div class="container">
-        <div class="grid-info">
-            <div class="card-info">
-                <h4 style="margin:0 0 10px 0;">📖 Terakhir Dilihat:</h4>
-                <p id="historyText" style="color: #666; font-size: 0.9rem;">Belum ada riwayat</p>
-            </div>
-            <div class="card-info">
-                <h4 style="margin:0 0 10px 0;">🏆 Peringkat XP:</h4>
-                <ul class="lb-list" id="leaderboard">
-                    <li><span>1. Admin IPA</span> <span>500 XP</span></li>
-                    <li><span id="lbName">Kamu</span> <span id="lbXP">0 XP</span></li>
-                </ul>
-            </div>
+        <div class="history-box">
+            <strong>🕒 Terakhir Dilihat:</strong> 
+            <span id="lastViewed">Belum ada riwayat (Silahkan klik materi)</span>
         </div>
 
         <div class="tabs">
@@ -219,111 +207,97 @@
             <button class="tab-link tab-9" onclick="openClass(event, 'kelas9')">KELAS IX</button>
         </div>
 
-        <div id="kelas7" class="tab-content" style="display:none;">
+        <div id="kelas7" class="tab-content">
+            <h2 style="color: var(--pink-mts);">🌸 Materi IPA Kelas VII</h2>
             <div class="materi-item">
                 <h3>Bab 1: Hakikat Ilmu Sains</h3>
-                <p>Mengenal metode ilmiah dan laboratorium IPA.</p>
+                <p>Mempelajari metode ilmiah dan pengenalan laboratorium.</p>
                 <div class="btn-group">
-                    <button class="btn btn-yt" onclick="playVideo('Sains 7', 'https://youtube.com/embed/dQw4w9WgXcQ')">YouTube</button>
-                    <button class="btn btn-quiz" onclick="getXP('Sains 7', 10)">Ambil Kuis (+10 XP)</button>
+                    <a href="#" class="btn btn-pdf" onclick="saveHistory('Bab 1 Kelas VII')">📄 Materi PDF</a>
+                    <a href="https://youtube.com" target="_blank" class="btn btn-yt" onclick="saveHistory('Video Bab 1 Kelas VII')">▶️ Video YouTube</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 1 Kelas VII')">📝 Mulai Kuis</button>
                 </div>
             </div>
         </div>
 
-        <div id="kelas8" class="tab-content" style="display:block;">
+        <div id="kelas8" class="tab-content" style="display: block;">
+            <h2 style="color: var(--blue-mts);">💎 Materi IPA Kelas VIII</h2>
             <div class="materi-item">
-                <h3>Bab 1: Sel & Mikroskop</h3>
-                <p>Mempelajari unit terkecil kehidupan dan cara mengamati sel.</p>
+                <h3>Bab 1: Sel dan Perkembangannya</h3>
+                <p>Membahas struktur sel, perbedaan sel hewan & tumbuhan.</p>
                 <div class="btn-group">
-                    <button class="btn btn-yt" onclick="playVideo('Sel Kelas 8', 'https://youtube.com/embed/dQw4w9WgXcQ')">YouTube</button>
-                    <button class="btn btn-quiz" onclick="getXP('Bab Sel', 20)">Ambil Kuis (+20 XP)</button>
-                </div>
-            </div>
-            <div class="materi-item">
-                <h3>Bab 2: Sistem Pencernaan</h3>
-                <p>Nutrisi dan mekanisme organ pencernaan manusia.</p>
-                <div class="btn-group">
-                    <button class="btn btn-yt" onclick="playVideo('Pencernaan 8', 'https://youtube.com/embed/dQw4w9WgXcQ')">YouTube</button>
-                    <button class="btn btn-quiz" onclick="getXP('Bab Pencernaan', 20)">Ambil Kuis (+20 XP)</button>
+                    <a href="#" class="btn btn-pdf" onclick="saveHistory('Bab 1 Kelas VIII')">📄 Materi PDF</a>
+                    <a href="https://youtube.com" target="_blank" class="btn btn-yt" onclick="saveHistory('Video Bab 1 Kelas VIII')">▶️ Video YouTube</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 1 Kelas VIII')">📝 Mulai Kuis</button>
                 </div>
             </div>
         </div>
 
-        <div id="kelas9" class="tab-content" style="display:none;">
+        <div id="kelas9" class="tab-content">
+            <h2 style="color: var(--green-mts);">🍀 Materi IPA Kelas IX</h2>
             <div class="materi-item">
-                <h3>Bab 1: Pertumbuhan & Perkembangan</h3>
-                <p>Siklus hidup manusia dan makhluk hidup lainnya.</p>
+                <h3>Bab 1: Sistem Reproduksi Manusia</h3>
+                <p>Mempelajari pembelahan sel dan organ reproduksi.</p>
                 <div class="btn-group">
-                    <button class="btn btn-yt" onclick="playVideo('Pertumbuhan 9', 'https://youtube.com/embed/dQw4w9WgXcQ')">YouTube</button>
-                    <button class="btn btn-quiz" onclick="getXP('Bab 1 Kelas 9', 25)">Ambil Kuis (+25 XP)</button>
+                    <a href="#" class="btn btn-pdf" onclick="saveHistory('Bab 1 Kelas IX')">📄 Materi PDF</a>
+                    <a href="https://youtube.com" target="_blank" class="btn btn-yt" onclick="saveHistory('Video Bab 1 Kelas IX')">▶️ Video YouTube</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 1 Kelas IX')">📝 Mulai Kuis</button>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <script>
-    let currentXP = 0;
-
-    // Fungsi Masuk / Login
-    function startApp() {
-        const name = document.getElementById('inputName').value;
-        const cls = document.getElementById('inputClass').value;
-        
-        if (name === "" || cls === "") {
-            alert("Silahkan isi Nama dan Kelas terlebih dahulu!");
-            return;
-        }
-
+    // Fungsi berpindah dari Landing ke Materi
+    function enterClass() {
         document.getElementById('landing-page').style.display = 'none';
-        document.getElementById('main-app').style.display = 'block';
-        
-        document.getElementById('userName').innerText = name;
-        document.getElementById('lbName').innerText = "2. " + name;
-        
-        // Atur tab otomatis sesuai pilihan kelas saat login
-        const fakeEvent = { currentTarget: document.querySelector('.tab-' + cls) };
-        openClass(fakeEvent, 'kelas' + cls);
+        document.getElementById('main-content').style.display = 'block';
     }
 
-    // Fungsi Tab & Ganti Warna Header
+    // Fungsi Ganti Kelas & Warna
     function openClass(evt, className) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
-        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
-        
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
         tablinks = document.getElementsByClassName("tab-link");
-        for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
 
         document.getElementById(className).style.display = "block";
         evt.currentTarget.className += " active";
 
-        // Ganti Warna Header Berdasarkan Kelas
-        const header = document.getElementById('appHeader');
-        if (className === 'kelas7') header.style.backgroundColor = 'var(--pink-main)';
-        else if (className === 'kelas8') header.style.backgroundColor = 'var(--blue-main)';
-        else if (className === 'kelas9') header.style.backgroundColor = 'var(--green-main)';
+        // Ganti Warna Header secara dinamis
+        const header = document.getElementById('dynamicHeader');
+        if (className === 'kelas7') header.style.backgroundColor = 'var(--pink-mts)';
+        else if (className === 'kelas8') header.style.backgroundColor = 'var(--blue-mts)';
+        else if (className === 'kelas9') header.style.backgroundColor = 'var(--green-mts)';
     }
 
-    // Fitur XP & Leaderboard
-    function getXP(bab, amount) {
-        currentXP += amount;
-        document.getElementById('userXP').innerText = currentXP;
-        document.getElementById('lbXP').innerText = currentXP + " XP";
-        alert("Selamat! Kamu dapat " + amount + " XP dari " + bab);
-        recordHistory(bab + " (Quiz)");
+    // Fitur Histori
+    function saveHistory(namaMateri) {
+        const waktu = new Date().toLocaleTimeString();
+        const info = namaMateri + " (Pukul " + waktu + ")";
+        document.getElementById('lastViewed').innerText = info;
+        localStorage.setItem('lastIpaHistory', info); // Simpan di memori browser
     }
 
-    // Fitur History & Video
-    function playVideo(bab, url) {
-        window.open(url, '_blank');
-        recordHistory(bab);
+    // Fitur Kuis Sederhana
+    function startQuiz(bab) {
+        alert("Kuis untuk " + bab + " akan segera dimulai! Siapkan diri kalian.");
+        saveHistory("Kuis " + bab);
     }
 
-    function recordHistory(bab) {
-        const time = new Date().toLocaleTimeString();
-        document.getElementById('historyText').innerText = bab + " (Dilihat pukul " + time + ")";
+    // Load histori saat halaman dibuka
+    window.onload = function() {
+        const history = localStorage.getItem('lastIpaHistory');
+        if (history) {
+            document.getElementById('lastViewed').innerText = history;
+        }
     }
 </script>
 
