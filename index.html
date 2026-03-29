@@ -72,11 +72,18 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05); margin-bottom: 20px;
         }
 
+        /* --- VIDEO YOUTUBE CONTAINER --- */
+        .video-container {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: 12px; margin: 15px 0; background: #000; display: none;
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
         /* --- MATERI STYLE --- */
         .materi-item {
-            background: white; margin-bottom: 15px; padding: 20px;
+            background: white; margin-bottom: 20px; padding: 20px;
             border-radius: 15px; border-left: 10px solid #ddd;
-            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
         #kelas7 .materi-item { border-left-color: var(--pink-mts); }
         #kelas8 .materi-item { border-left-color: var(--blue-mts); }
@@ -92,6 +99,16 @@
         .btn-pdf { background: #00cec9; }
         .btn-yt { background: #ff7675; }
         .btn-quiz { background: var(--orange-mts); }
+
+        /* --- PROGRAM RISET SECTION --- */
+        .research-section {
+            background: #f8faff; border: 2px dashed var(--blue-mts);
+            border-radius: 15px; padding: 20px; margin-top: 30px;
+        }
+        .research-badge {
+            background: var(--blue-mts); color: white; padding: 4px 12px;
+            border-radius: 20px; font-size: 0.75rem; font-weight: bold;
+        }
 
         /* --- KUIS MODAL --- */
         #quizOverlay {
@@ -161,6 +178,14 @@
                     <p style="font-size: 0.9rem; color: #636e72;">Guru IPA MTsN 5 Kebumen</p>
                 </div>
             </div>
+
+            <div class="research-section">
+                <span class="research-badge">NEW PROGRAM</span>
+                <h3 style="margin: 10px 0 5px 0; color: var(--blue-mts);">🔬 Program Riset Siswa</h3>
+                <p style="font-size: 0.9rem; color: #555;">Kembangkan jiwa peneliti muda kalian! Ikuti pendampingan karya ilmiah remaja (KIR) untuk kompetisi tingkat kabupaten dan nasional.</p>
+                <button class="btn btn-pdf" onclick="alert('Pendaftaran Riset Belum Dibuka')">Daftar Riset</button>
+            </div>
+
             <div class="class-selector">
                 <div class="class-card c7" onclick="openClassDirect('kelas7')"><h2>KELAS VII</h2><p>Zat & Makhluk Hidup</p></div>
                 <div class="class-card c8" onclick="openClassDirect('kelas8')"><h2>KELAS VIII</h2><p>Sistem Organ & Usaha</p></div>
@@ -175,209 +200,4 @@
             <div class="materi-item">
                 <h3>Bab 1: Hakikat Ilmu Sains</h3>
                 <p>Metode ilmiah dan alat laboratorium.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveHistory('Materi VII: Sains')">📄 PDF</button>
-                    <button class="btn btn-quiz" onclick="startQuiz('sains7')">📝 Kuis</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="kelas8" class="tab-content">
-        <div class="card">
-            <h2 style="color: var(--blue-mts);">💎 Materi Kelas VIII</h2>
-            
-            <div class="materi-item">
-                <h3>Bab 1: Sel & Mikroskop</h3>
-                <p>Unit terkecil penyusun makhluk hidup.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Sel')">📄 PDF</button>
-                    <button class="btn btn-quiz" onclick="startQuiz('sel')">📝 Kuis</button>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 2: Sistem Pencernaan</h3>
-                <p>Nutrisi makanan dan saluran pencernaan.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Pencernaan')">📄 PDF</button>
-                    <button class="btn btn-quiz" onclick="startQuiz('pencernaan')">📝 Kuis</button>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 4: Sistem Peredaran Darah</h3>
-                <p>Jantung, pembuluh darah, dan komponen darah.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveHistory('Materi VIII: Darah')">📄 PDF</button>
-                    <button class="btn btn-quiz" onclick="startQuiz('darah')">📝 Kuis</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="kelas9" class="tab-content">
-        <div class="card">
-            <h2 style="color: var(--green-mts);">🍀 Materi Kelas IX</h2>
-            <div class="materi-item">
-                <h3>Bab 1: Genetika</h3>
-                <p>Pewarisan sifat dan DNA.</p>
-                <div class="btn-group">
-                    <button class="btn btn-pdf" onclick="saveHistory('Materi IX: Genetik')">📄 PDF</button>
-                    <button class="btn btn-quiz" onclick="startQuiz('genetika9')">📝 Kuis</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="quizOverlay">
-    <div class="quiz-container">
-        <span class="close-quiz" onclick="closeQuiz()">×</span>
-        <div id="quizContent">
-            </div>
-    </div>
-</div>
-
-<script>
-    const header = document.getElementById('dynamicHeader');
-    const title = document.getElementById('mainTitle');
-    const tabs = document.getElementById('mainTabs');
-    const searchContainer = document.getElementById('searchContainer');
-
-    // --- DATA KUIS ---
-    const quizData = {
-        sel: {
-            title: "Kuis Bab 1: Sel",
-            questions: [
-                { q: "Organel sel yang berfungsi sebagai penghasil energi adalah...", a: ["Ribosom", "Mitokondria", "Lisosom", "Vakuola"], correct: 1 },
-                { q: "Perbedaan utama sel tumbuhan dan sel hewan adalah adanya...", a: ["Inti sel", "Dinding sel", "Sitoplasma", "Membran sel"], correct: 1 }
-            ]
-        },
-        pencernaan: {
-            title: "Kuis Bab 2: Sistem Pencernaan",
-            questions: [
-                { q: "Enzim Ptialin diproduksi di bagian...", a: ["Lambung", "Mulut", "Usus Halus", "Pankreas"], correct: 1 },
-                { q: "Penyerapan sari makanan terjadi di...", a: ["Lambung", "Usus Besar", "Usus Halus", "Kerongkongan"], correct: 2 }
-            ]
-        },
-        darah: {
-            title: "Kuis Bab 4: Peredaran Darah",
-            questions: [
-                { q: "Komponen darah yang berfungsi membekukan luka adalah...", a: ["Eritrosit", "Leukosit", "Trombosit", "Plasma"], correct: 2 },
-                { q: "Jantung manusia memiliki berapa ruang?", a: ["2", "3", "4", "5"], correct: 2 }
-            ]
-        }
-    };
-
-    // --- FUNGSI KUIS ---
-    let currentQuiz = null;
-    let score = 0;
-
-    function startQuiz(key) {
-        currentQuiz = quizData[key];
-        if (!currentQuiz) { alert("Kuis belum tersedia!"); return; }
-        
-        score = 0;
-        document.getElementById('quizOverlay').style.display = 'flex';
-        renderQuestion(0);
-    }
-
-    function renderQuestion(index) {
-        const content = document.getElementById('quizContent');
-        const q = currentQuiz.questions[index];
-        
-        let html = `<div class="quiz-header">${currentQuiz.title}</div>
-                    <p><strong>Soal ${index + 1}:</strong> ${q.q}</p>`;
-        
-        q.a.forEach((opt, i) => {
-            html += `<button class="quiz-option" onclick="checkAnswer(${index}, ${i})">${opt}</button>`;
-        });
-        
-        content.innerHTML = html;
-    }
-
-    function checkAnswer(qIndex, aIndex) {
-        if (aIndex === currentQuiz.questions[qIndex].correct) score++;
-        
-        if (qIndex + 1 < currentQuiz.questions.length) {
-            renderQuestion(qIndex + 1);
-        } else {
-            showResult();
-        }
-    }
-
-    function showResult() {
-        const content = document.getElementById('quizContent');
-        content.innerHTML = `
-            <div class="quiz-header">Hasil Kuis</div>
-            <h2 style="text-align:center">Skor Kamu: ${(score / currentQuiz.questions.length) * 100}</h2>
-            <p style="text-align:center">Hebat! Teruslah belajar, Scientist!</p>
-            <button class="btn btn-pdf" style="width:100%" onclick="closeQuiz()">Selesai</button>
-        `;
-    }
-
-    function closeQuiz() { document.getElementById('quizOverlay').style.display = 'none'; }
-
-    // --- NAVIGASI ---
-    function openClass(evt, className) {
-        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
-        document.querySelectorAll(".tab-link").forEach(l => l.classList.remove("active"));
-        document.getElementById(className).style.display = "block";
-        tabs.style.display = "flex";
-        searchContainer.style.display = "block";
-        if (evt) evt.currentTarget.classList.add("active");
-        updateUI(className);
-        window.scrollTo(0, 0);
-    }
-
-    function openClassDirect(className) {
-        let btnId = (className === 'kelas7') ? 'btn7' : (className === 'kelas8') ? 'btn8' : 'btn9';
-        openClass({currentTarget: document.getElementById(btnId)}, className);
-    }
-
-    function goToHome() {
-        document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
-        document.getElementById('home').style.display = "block";
-        tabs.style.display = "none";
-        searchContainer.style.display = "none";
-        header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-        title.innerText = "IPA SMART";
-    }
-
-    function updateUI(cls) {
-        if (cls === 'kelas7') { header.style.background = 'var(--pink-mts)'; title.innerText = "KELAS VII"; }
-        else if (cls === 'kelas8') { header.style.background = 'var(--blue-mts)'; title.innerText = "KELAS VIII"; }
-        else if (cls === 'kelas9') { header.style.background = 'var(--green-mts)'; title.innerText = "KELAS IX"; }
-    }
-
-    function searchMateri() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let items = document.getElementsByClassName('materi-item');
-        for (let i = 0; i < items.length; i++) {
-            let text = items[i].innerText.toLowerCase();
-            items[i].style.display = text.includes(input) ? "block" : "none";
-        }
-    }
-
-    function saveHistory(namaMateri) {
-        let history = JSON.parse(localStorage.getItem('ipa_history')) || [];
-        const waktu = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
-        history.unshift({ nama: namaMateri, jam: waktu });
-        if(history.length > 5) history.pop();
-        localStorage.setItem('ipa_history', JSON.stringify(history));
-        displayHistory();
-        alert("Membuka " + namaMateri);
-    }
-
-    function displayHistory() {
-        const list = document.getElementById('historyList');
-        let history = JSON.parse(localStorage.getItem('ipa_history')) || [];
-        if (history.length === 0) { list.innerHTML = "<li>Belum ada aktivitas</li>"; return; }
-        list.innerHTML = history.map(item => `<li><span>📖 ${item.nama}</span><span style="color: #888;">${item.jam}</span></li>`).join('');
-    }
-
-    window.onload = displayHistory;
-</script>
-</body>
-</html>
+                <div id="vid_sains7" class="video-container">
