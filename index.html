@@ -1,222 +1,270 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8"> 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materi IPA MTs NEGERI 5 KEBUMEN - Repository</title>
+    <title>Materi IPA - MTs Negeri 5 Kebumen</title>
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #f4f7f6;
+            --primary-blue: #0056b3;
+            --secondary-blue: #e7f1ff;
+            --dark-blue: #003d80;
+            --white: #ffffff;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
             margin: 0;
-            background-color: var(--light);
-            color: #333;
+            padding: 0;
+            background-color: #f4f7f6;
         }
+
         header {
-            background: var(--primary);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-        nav {
-            background: #fff;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            z-index: 1000;
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: bold;
-            font-size: 0.9rem;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        nav a:hover {
-            background: var(--secondary);
-            color: white;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        section {
-            background: white;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        h2 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 10px;
-        }
-        .formula {
-            background: #eef2f3;
-            padding: 10px;
-            border-left: 4px solid var(--accent);
-            font-family: 'Courier New', Courier, monospace;
-            display: inline-block;
-            margin: 10px 0;
-        }
-        footer {
-            text-align: center;
+            background-color: var(--primary-blue);
+            color: var(--white);
             padding: 20px;
-            color: #777;
-            font-size: 0.8rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            background-color: var(--dark-blue);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        .tab-link {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-color: inherit;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .tab-link:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .tab-link.active {
+            background-color: var(--white);
+            color: var(--primary-blue);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background-color: var(--white);
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 { color: var(--primary-blue); border-bottom: 2px solid var(--secondary-blue); padding-bottom: 10px; }
+
+        .materi-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .materi-item {
+            background: var(--secondary-blue);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .materi-item h3 { margin-top: 0; font-size: 1.1rem; color: var(--dark-blue); }
+
+        .media-placeholder {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: white;
+            display: inline-block;
+        }
+
+        .btn-pdf { background-color: #d9534f; }
+        .btn-yt { background-color: #ff0000; }
+
+        /* Responsive Mobile */
+        @media (max-width: 600px) {
+            .tabs { flex-direction: column; }
+            .tab-link { border-bottom: 1px solid rgba(255,255,255,0.1); }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>MATERI IPA KELAS 8</h1>
-    <p>Rangkuman Materi KELAS 8 untuk GitHub Pages / Belajar Mandiri</p>
+    <h1>MATERI IPA MTs NEGERI 5 KEBUMEN</h1>
+    <p>Pusat Pembelajaran Digital Terpadu</p>
 </header>
 
-<nav>
-    <a href="#sel">Sel</a>
-    <a href="#gerak">Sistem Gerak</a>
-    <a href="#gaya">Gerak & Gaya</a>
-    <a href="#pesawat">Pesawat Sederhana</a>
-    <a href="#pencernaan">Pencernaan</a>
-    <a href="#pernapasan">Pernapasan</a>
-    <a href="#darah">Darah</a>
-    <a href="#ekskresi">Ekskresi</a>
-    <a href="#usaha">Usaha/Energi</a>
-    <a href="#gelombang">Gelombang</a>
-    <a href="#optik">Optik</a>
-</nav>
-
 <div class="container">
+    <div class="tabs">
+        <button class="tab-link" onclick="openClass(event, 'kelas7')">KELAS VII</button>
+        <button class="tab-link active" onclick="openClass(event, 'kelas8')">KELAS VIII</button>
+        <button class="tab-link" onclick="openClass(event, 'kelas9')">KELAS IX</button>
+    </div>
 
-    <section id="sel">
-        <h2>1. Sel dan Mikroskop</h2>
-        <p>Sel adalah unit terkecil kehidupan. Mikroskop digunakan untuk melihat objek mikroskopis.</p>
-        <ul>
-            <li><strong>Sel Hewan:</strong> Tidak punya dinding sel, punya sentriol.</li>
-            <li><strong>Sel Tumbuhan:</strong> Punya dinding sel, kloroplas, dan vakuola besar.</li>
-        </ul>
-    </section>
+    <div id="kelas7" class="tab-content">
+        <h2>Materi IPA Kelas VII</h2>
+        <p>Materi sedang dalam proses pembaharuan...</p>
+    </div>
 
-    <section id="gerak">
-        <h2>2. Sistem Gerak Manusia</h2>
-        <p>Terdiri dari alat gerak pasif (tulang) dan aktif (otot).</p>
-        <ul>
-            <li><strong>Sendi:</strong> Peluru (segala arah), Engsel (satu arah), Pelana (dua arah).</li>
-            <li><strong>Otot:</strong> Polos (involunter), Lurik (volunter), Jantung (khusus).</li>
-        </ul>
-    </section>
+    <div id="kelas8" class="tab-content" style="display: block;">
+        <h2>Materi IPA Kelas VIII (Fase D)</h2>
+        <div class="materi-list">
+            
+            <div class="materi-item">
+                <h3>Bab 1: Sel dan Perkembangannya</h3>
+                <p>Membahas struktur sel, perbedaan sel hewan & tumbuhan, serta organisasi kehidupan.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="gaya">
-        <h2>3. Gerak dan Gaya</h2>
-        <p>Membahas perpindahan dan interaksi benda.</p>
-        <div class="formula">F = m . a (Hukum II Newton)</div>
-        <ul>
-            <li><strong>GLB:</strong> Gerak lurus dengan kecepatan tetap.</li>
-            <li><strong>GLBB:</strong> Gerak lurus dengan percepatan tetap.</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 2: Sistem Pencernaan pada Manusia</h3>
+                <p>Nutrisi makanan, saluran pencernaan, kelenjar, serta penyakit pada sistem pencernaan.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="pesawat">
-        <h2>4. Pesawat Sederhana</h2>
-        <p>Alat untuk memudahkan kerja dengan mengubah arah atau besar gaya.</p>
-        <ul>
-            <li>Tuas/Pengungkit</li>
-            <li>Bidang Miring</li>
-            <li>Katrol (Tetap, Bebas, Majemuk)</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 3: Zat Aditif</h3>
+                <p>Macam-macam zat aditif dalam makanan/minuman dan dampaknya bagi kesehatan.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="pencernaan">
-        <h2>5. Sistem Pencernaan Manusia</h2>
-        <p>Proses memecah nutrisi menjadi molekul sederhana.</p>
-        <ol>
-            <li>Mulut (Mekanik & Kimiawi/Amilase)</li>
-            <li>Lambung (HCl, Pepsin, Renin)</li>
-            <li>Usus Halus (Penyerapan sari makanan)</li>
-        </ol>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 4: Sistem Peredaran Darah pada Manusia</h3>
+                <p>Organ peredaran darah, komponen darah, golongan darah, dan penyakit terkait.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="pernapasan">
-        <h2>6. Sistem Pernapasan Manusia</h2>
-        <p>Pertukaran Oksigen ($O_2$) dan Karbondioksida ($CO_2$).</p>
-        <ul>
-            <li>Inspirasi: Menghirup udara.</li>
-            <li>Ekspirasi: Mengeluarkan udara.</li>
-            <li>Alveolus: Tempat pertukaran gas sesungguhnya.</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 5: Sistem Pernapasan pada Manusia</h3>
+                <p>Mekanisme inspirasi/ekspirasi, volume udara, dan kesehatan paru-paru.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="darah">
-        <h2>7. Sistem Peredaran Darah</h2>
-        <p>Sistem transportasi tubuh.</p>
-        <ul>
-            <li><strong>Komponen:</strong> Plasma, Eritrosit, Leukosit, Trombosit.</li>
-            <li><strong>Jantung:</strong> Atrium kanan/kiri, Ventrikel kanan/kiri.</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 6: Sistem Ekskresi pada Manusia</h3>
+                <p>Struktur dan fungsi ginjal, kulit, hati, dan paru-paru dalam membuang zat sisa.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="ekskresi">
-        <h2>8. Sistem Ekskresi</h2>
-        <p>Pengeluaran sisa metabolisme yang beracun.</p>
-        <ul>
-            <li>Ginjal: Urine</li>
-            <li>Kulit: Keringat</li>
-            <li>Paru-paru: CO2 & Uap Air</li>
-            <li>Hati: Empedu/Urea</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 7: Usaha & Energi</h3>
+                <p>Konsep usaha, daya, bentuk-bentuk energi, dan transformasi energi pada makhluk hidup.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="usaha">
-        <h2>9. Usaha dan Energi</h2>
-        <div class="formula">W = F . s</div>
-        <p>Energi tidak dapat dimusnahkan, hanya berubah bentuk.</p>
-        <ul>
-            <li>EP = m . g . h</li>
-            <li>EK = 1/2 . m . v<sup>2</sup></li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 8: Pesawat Sederhana dan Kerja Otot Rangka</h3>
+                <p>Tuas, bidang miring, katrol, dan prinsip kerja pesawat sederhana pada tubuh manusia.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="gelombang">
-        <h2>10. Getaran, Gelombang, dan Bunyi</h2>
-        <p>Bunyi memerlukan medium untuk merambat.</p>
-        <ul>
-            <li><strong>Infrasonik:</strong> < 20 Hz</li>
-            <li><strong>Audiosonik:</strong> 20 - 20.000 Hz</li>
-            <li><strong>Ultrasonik:</strong> > 20.000 Hz</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 9: Getaran, Gelombang, dan Bunyi</h3>
+                <p>Periode, frekuensi, karakteristik gelombang, resonansi, dan pemantulan bunyi.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
-    <section id="optik">
-        <h2>11. Cahaya dan Alat Optik</h2>
-        <p>Sifat cahaya: Merambat lurus, menembus benda bening, dapat dipantulkan dan dibiaskan.</p>
-        <ul>
-            <li>Cermin Cekung: Mengumpulkan cahaya (Konvergen).</li>
-            <li>Cermin Cembung: Menyebarkan cahaya (Divergen).</li>
-        </ul>
-    </section>
+            <div class="materi-item">
+                <h3>Bab 10: Cahaya dan Alat Optik</h3>
+                <p>Sifat cahaya, cermin, lensa, mekanisme mata, dan cara kerja mikroskop/teleskop.</p>
+                <div class="media-placeholder">
+                    <a href="#" class="btn btn-pdf">📄 Download PDF</a>
+                    <a href="#" class="btn btn-yt">▶️ Video YouTube</a>
+                </div>
+            </div>
 
+        </div>
+    </div>
+
+    <div id="kelas9" class="tab-content">
+        <h2>Materi IPA Kelas IX</h2>
+        <p>Materi sedang dalam proses pembaharuan...</p>
+    </div>
 </div>
 
-<footer>
-    <p>&copy; 2026 Repository Materi IPA - Dibuat untuk tujuan Pendidikan</p>
-</footer>
+<script>
+    function openClass(evt, className) {
+        var i, tabcontent, tablinks;
+        
+        // Hide all tab content
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove active class from all buttons
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show current tab and add active class
+        document.getElementById(className).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
 
 </body>
 </html>
