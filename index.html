@@ -3,85 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPA Terpadu - MTsN 5 Kebumen</title>
+    <title>IPA Smart - MTsN 5 Kebumen</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #0062ff 0%, #00a1ff 100%);
-            --dark-blue: #003d80;
-            --bg-light: #f0f4f8;
-            --card-bg: #ffffff;
-            --text-main: #2d3436;
-            --transition: all 0.3s ease;
+            --primary: #007bff;
+            --primary-dark: #0056b3;
+            --accent: #00d2ff;
+            --bg: #f8fbff;
+            --card: #ffffff;
+            --text: #2d3436;
+            --xp-color: #ff9f43;
         }
 
-        /* Dark Mode Variables */
         body.dark-mode {
-            --bg-light: #1a1c20;
-            --card-bg: #2d3139;
-            --text-main: #f5f6fa;
+            --bg: #121417;
+            --card: #1e2126;
+            --text: #f5f6fa;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            transition: var(--transition);
+            background-color: var(--bg);
+            color: var(--text);
+            transition: 0.3s;
         }
+
+        /* --- LOGIN & LANDING PAGE --- */
+        #login-page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0062ff 0%, #00d2ff 100%);
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .login-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-card h2 { color: var(--primary-dark); margin-bottom: 5px; }
+        .login-card input, .login-card select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .btn-start {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* --- MAIN APP UI --- */
+        #main-app { display: none; }
 
         header {
-            background: var(--primary-gradient);
+            background: linear-gradient(135deg, #0062ff 0%, #00d2ff 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-radius: 0 0 30px 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 0 0 40px 40px;
         }
 
-        .container {
-            max-width: 900px;
-            margin: -30px auto 50px;
-            padding: 0 20px;
+        .user-stats {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
         }
 
-        /* Mode Toggle & Search */
-        .top-features {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .container { max-width: 900px; margin: -30px auto 50px; padding: 0 20px; }
+
+        /* History & Leaderboard Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             margin-bottom: 20px;
-            gap: 10px;
         }
 
-        #searchBar {
-            flex: 1;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: none;
+        .info-card {
+            background: var(--card);
+            padding: 15px;
+            border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            outline: none;
+            font-size: 0.85rem;
         }
 
-        .btn-theme {
-            background: var(--card-bg);
-            border: none;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            font-size: 1.2rem;
-        }
-
-        /* Tab Styling */
+        /* Tabs */
         .tabs {
             display: flex;
-            background: var(--card-bg);
+            background: var(--card);
             border-radius: 15px;
             padding: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .tab-link {
@@ -93,221 +132,198 @@
             font-weight: 600;
             color: #7f8c8d;
             border-radius: 10px;
-            transition: var(--transition);
-            font-size: 0.9rem;
         }
 
         .tab-link.active {
-            background: var(--primary-gradient);
+            background: var(--primary);
             color: white;
-            box-shadow: 0 4px 10px rgba(0,98,255,0.3);
         }
 
-        /* Materi Cards */
-        .tab-content {
-            display: none;
-            animation: slideUp 0.4s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
+        /* Materi Item */
         .materi-item {
-            background: var(--card-bg);
-            margin-bottom: 20px;
+            background: var(--card);
+            margin-bottom: 15px;
             padding: 20px;
             border-radius: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: var(--transition);
+            transition: 0.3s;
+            border-left: 5px solid var(--primary);
         }
 
-        .materi-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
+        .materi-item:hover { transform: scale(1.02); }
 
-        .materi-item h3 {
-            margin-top: 0;
-            color: #0062ff;
-            font-size: 1.2rem;
-        }
-
-        .media-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
         .btn {
             flex: 1;
-            text-align: center;
-            text-decoration: none;
             padding: 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .btn-pdf { background: #ffe9e9; color: #d63031; }
-        .btn-yt { background: #ffeded; color: #ff0000; }
-        .btn:hover { filter: brightness(0.9); transform: scale(1.02); }
-
-        /* Footer / Quick Links */
-        .footer-nav {
-            text-align: center;
-            margin-top: 40px;
-            padding-bottom: 30px;
+            border-radius: 10px;
+            text-decoration: none;
             font-size: 0.8rem;
-            color: #7f8c8d;
+            text-align: center;
+            font-weight: bold;
         }
 
-        /* Mobile Optimization */
+        .btn-quiz { background: #e3f2fd; color: #007bff; border: 1px solid #007bff; cursor: pointer; }
+        .btn-pdf { background: #ffebee; color: #d32f2f; }
+
+        /* Leaderboard Style */
+        .leaderboard-list { list-style: none; padding: 0; margin: 0; }
+        .leaderboard-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+
         @media (max-width: 600px) {
-            header h1 { font-size: 1.5rem; }
-            .tabs { flex-wrap: wrap; }
-            .tab-link { font-size: 0.75rem; padding: 10px 5px; }
-            .media-group { flex-direction: column; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1 style="margin:0">IPA Terpadu</h1>
-    <p style="opacity:0.9; font-weight:300">MTs Negeri 5 Kebumen</p>
-</header>
-
-<div class="container">
-    <div class="top-features">
-        <input type="text" id="searchBar" placeholder="Cari judul bab..." onkeyup="searchMateri()">
-        <button class="btn-theme" onclick="toggleDarkMode()" title="Ganti Mode">🌓</button>
+<div id="login-page">
+    <div class="login-card">
+        <img src="https://via.placeholder.com/80/007bff/ffffff?text=IPA" style="border-radius: 50%; margin-bottom: 15px;">
+        <h2>Selamat Datang!</h2>
+        <p style="font-size: 0.8rem; color: #666;">Silahkan isi data diri untuk mulai belajar</p>
+        <input type="text" id="userName" placeholder="Nama Lengkap">
+        <select id="userClass">
+            <option value="">Pilih Kelas</option>
+            <option value="8A">8A</option><option value="8B">8B</option><option value="8C">8C</option>
+            <option value="8D">8D</option><option value="8E">8E</option><option value="8F">8F</option>
+        </select>
+        <input type="number" id="userAbsen" placeholder="Nomor Absen">
+        <button class="btn-start" onclick="login()">MULAI BELAJAR</button>
     </div>
+</div>
 
-    <div class="tabs">
-        <button class="tab-link" onclick="openClass(event, 'kelas7')">KELAS VII</button>
-        <button class="tab-link active" onclick="openClass(event, 'kelas8')">KELAS VIII</button>
-        <button class="tab-link" onclick="openClass(event, 'kelas9')">KELAS IX</button>
-    </div>
-
-    <div id="kelas7" class="tab-content">
-        <div class="materi-item">
-            <h3>Materi Masih Disiapkan</h3>
-            <p>Siswa Kelas VII harap menunggu update materi terbaru ya!</p>
+<div id="main-app">
+    <header>
+        <h1 style="margin:0">IPA Smart MTsN 5</h1>
+        <div class="user-stats">
+            <span id="displayUser">👤 Siswa</span>
+            <span id="displayXP">⭐ 0 XP</span>
         </div>
-    </div>
+    </header>
 
-    <div id="kelas8" class="tab-content" style="display: block;">
-        <div id="materiList8">
-            <div class="materi-item">
+    <div class="container">
+        <div class="info-grid">
+            <div class="info-card">
+                <strong>📖 Terakhir Dilihat:</strong>
+                <p id="lastSeen" style="margin: 5px 0 0; color: var(--primary);">Belum ada riwayat</p>
+            </div>
+            <div class="info-card">
+                <strong>🏆 Top Leaderboard (Global)</strong>
+                <ul class="leaderboard-list" id="leaderboard">
+                    <li><span>1. Admin</span> <span>999 XP</span></li>
+                    <li><span>2. Siswa Rajin</span> <span>150 XP</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-link" onclick="openClass(event, 'kelas7')">KELAS VII</button>
+            <button class="tab-link active" onclick="openClass(event, 'kelas8')">KELAS VIII</button>
+            <button class="tab-link" onclick="openClass(event, 'kelas9')">KELAS IX</button>
+        </div>
+
+        <div id="kelas8" class="tab-content" style="display: block;">
+            <div class="materi-item" onclick="recordHistory('Bab 1: Sel')">
                 <h3>Bab 1: Sel & Perkembangannya</h3>
-                <p>Mengenal unit terkecil kehidupan dan perbedaannya.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                <p>Mengenal struktur sel sebagai unit terkecil kehidupan.</p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-pdf">PDF</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 1', 20)">AMBIL KUIS (+20 XP)</button>
                 </div>
             </div>
 
-            <div class="materi-item">
+            <div class="materi-item" onclick="recordHistory('Bab 2: Pencernaan')">
                 <h3>Bab 2: Sistem Pencernaan</h3>
-                <p>Bagaimana tubuh mengolah nutrisi dari makanan.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                <p>Proses pengolahan nutrisi dalam tubuh manusia.</p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-pdf">PDF</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 2', 20)">AMBIL KUIS (+20 XP)</button>
                 </div>
             </div>
-
-            <div class="materi-item">
+            
+            <div class="materi-item" onclick="recordHistory('Bab 3: Zat Aditif')">
                 <h3>Bab 3: Zat Aditif</h3>
-                <p>Mengenal pewarna, pengawet, dan penyedap pada makanan.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
+                <p>Mempelajari zat tambahan pada makanan dan minuman.</p>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-pdf">PDF</a>
+                    <button class="btn btn-quiz" onclick="startQuiz('Bab 3', 20)">AMBIL KUIS (+20 XP)</button>
                 </div>
+            </div>
             </div>
 
-            <div class="materi-item">
-                <h3>Bab 4: Peredaran Darah</h3>
-                <p>Mempelajari jantung, pembuluh darah, dan sel darah.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 5: Sistem Pernapasan</h3>
-                <p>Mekanisme inspirasi, ekspirasi, dan kesehatan paru-paru.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 6: Sistem Ekskresi</h3>
-                <p>Cara tubuh membuang racun melalui ginjal dan kulit.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 7: Usaha & Energi</h3>
-                <p>Konsep kerja fisik dan perubahan bentuk energi.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 8: Pesawat Sederhana</h3>
-                <p>Tuas, katrol, dan cara mempermudah pekerjaan manusia.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 9: Getaran & Gelombang</h3>
-                <p>Mempelajari bunyi, frekuensi, dan resonansi.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
-
-            <div class="materi-item">
-                <h3>Bab 10: Cahaya & Alat Optik</h3>
-                <p>Sifat cahaya, cermin, lensa, dan mikroskop.</p>
-                <div class="media-group">
-                    <a href="#" class="btn btn-pdf">📄 PDF</a>
-                    <a href="#" class="btn btn-yt">▶️ YouTube</a>
-                </div>
-            </div>
+        <div id="kelas7" class="tab-content" style="display:none">
+            <p>Materi Kelas VII akan segera hadir...</p>
         </div>
-    </div>
-
-    <div id="kelas9" class="tab-content">
-        <div class="materi-item">
-            <h3>Segera Hadir</h3>
-            <p>Materi persiapan ujian akhir untuk kelas IX.</p>
+        <div id="kelas9" class="tab-content" style="display:none">
+            <p>Materi Kelas IX akan segera hadir...</p>
         </div>
-    </div>
-
-    <div class="footer-nav">
-        <p>&copy; 2024 MTs Negeri 5 Kebumen - Ilmu Pengetahuan Alam</p>
     </div>
 </div>
 
 <script>
-    // Fungsi Tab
+    let userXP = 0;
+
+    // Fungsi Login
+    function login() {
+        const name = document.getElementById('userName').value;
+        const uClass = document.getElementById('userClass').value;
+        const absen = document.getElementById('userAbsen').value;
+
+        if(name && uClass && absen) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('displayUser').innerText = `👤 ${name} (${uClass}/${absen})`;
+            
+            // Animasi masuk
+            window.scrollTo(0,0);
+        } else {
+            alert("Harap isi semua data diri ya!");
+        }
+    }
+
+    // Fungsi Riwayat Terakhir Dilihat
+    function recordHistory(babName) {
+        document.getElementById('lastSeen').innerText = babName;
+        // Simpan ke local storage agar tidak hilang saat refresh
+        localStorage.setItem('lastIpaBab', babName);
+    }
+
+    // Load history saat buka halaman
+    window.onload = function() {
+        if(localStorage.getItem('lastIpaBab')) {
+            document.getElementById('lastSeen').innerText = localStorage.getItem('lastIpaBab');
+        }
+    };
+
+    // Fungsi Kuis & XP
+    function startQuiz(bab, points) {
+        let confirmQuiz = confirm(`Mulai kuis ${bab}? Jawab dengan benar untuk dapat ${points} XP!`);
+        if(confirmQuiz) {
+            // Simulasi pengerjaan kuis
+            alert("Selamat! Kamu menyelesaikan kuis dengan benar.");
+            userXP += points;
+            document.getElementById('displayXP').innerText = `⭐ ${userXP} XP`;
+            updateLeaderboard();
+        }
+    }
+
+    function updateLeaderboard() {
+        // Simulasi update papan peringkat
+        const name = document.getElementById('userName').value;
+        const lb = document.getElementById('leaderboard');
+        lb.innerHTML = `
+            <li><span>1. ${name} (You)</span> <span>${userXP} XP</span></li>
+            <li><span>2. Admin</span> <span>999 XP</span></li>
+            <li><span>3. Siswa Rajin</span> <span>150 XP</span></li>
+        `;
+    }
+
+    // Fungsi Navigasi Tab
     function openClass(evt, className) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tab-content");
@@ -320,25 +336,6 @@
         }
         document.getElementById(className).style.display = "block";
         evt.currentTarget.className += " active";
-    }
-
-    // Fitur Dark Mode
-    function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
-    }
-
-    // Fitur Pencarian
-    function searchMateri() {
-        let input = document.getElementById('searchBar').value.toLowerCase();
-        let items = document.getElementsByClassName('materi-item');
-        
-        for (i = 0; i < items.length; i++) {
-            if (!items[i].innerHTML.toLowerCase().includes(input)) {
-                items[i].style.display = "none";
-            } else {
-                items[i].style.display = "block";
-            }
-        }
     }
 </script>
 
